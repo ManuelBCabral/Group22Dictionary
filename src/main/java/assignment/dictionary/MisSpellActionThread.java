@@ -97,7 +97,7 @@ public class MisSpellActionThread implements Runnable {
             input = new Scanner(file); //makes the input a scanner with a file
             while(input.hasNextLine()){ //while there are lines in the file
                 String line = input.nextLine();
-                String[] words = line.split("//s+");//split the string into wordlets
+                String[] words = line.split("\\s+");//split the string into wordlets
                 for(String word : words){//for word in the string
                     boolean isCorrect = checkWord(word, theDictionary);
                     Wordlet wordlet = new Wordlet(word, isCorrect);
@@ -107,7 +107,6 @@ public class MisSpellActionThread implements Runnable {
                 myLines.nextLine();//goes to the next line in the for loop
             }
             input.close();
-
         } catch (IOException e) {
             System.out.println("There was an error in reading or opening the file: " + theFileName);
             System.out.println(e.getMessage());
@@ -121,9 +120,8 @@ public class MisSpellActionThread implements Runnable {
      */
     public boolean checkWord(String word, DictionaryInterface<String, String> theDictionary) {
         boolean result = false;
-
         result = theDictionary.contains(word);
-
+        System.out.println(result);
         return result;
 
     }

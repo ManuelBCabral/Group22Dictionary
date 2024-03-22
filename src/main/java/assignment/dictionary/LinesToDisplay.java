@@ -21,7 +21,6 @@ public class LinesToDisplay {
         lines = new AList[LINES];
         for(int i = 0; i<LINES; i++){
             lines[i] = new AList<Wordlet>();
-            //System.out.println("LinesToDisplay");
         }
         currentLine = 0;
     }
@@ -32,6 +31,7 @@ public class LinesToDisplay {
     public void addWordlet(Wordlet w) {
         if(w != null){
             lines[currentLine].add(w);//adding the current line to the wordlet AList
+            lines[currentLine].add(new Wordlet(" ", true));    //spaces
         }
     }
 
