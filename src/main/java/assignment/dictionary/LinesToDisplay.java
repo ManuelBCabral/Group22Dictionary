@@ -21,6 +21,7 @@ public class LinesToDisplay {
         lines = new AList[LINES];
         for(int i = 0; i<LINES; i++){
             lines[i] = new AList<Wordlet>();
+            //System.out.println("LinesToDisplay");
         }
         currentLine = 0;
     }
@@ -40,6 +41,7 @@ public class LinesToDisplay {
      *
      */
     public void nextLine() {
+        currentLine++;
         if(currentLine >= LINES) {//for loop while there are more lines
             for (int i = 1; i < LINES; i++) {
                 lines[i - 1] = lines[i];

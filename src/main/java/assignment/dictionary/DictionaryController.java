@@ -42,6 +42,7 @@ public class DictionaryController implements Initializable {
         view.getChildren().clear();
         
         for (int i = 0; i < lines.getCurrentLine(); i++) {
+            //System.out.println("updateView");
             TextFlow newLine = new TextFlow();
             newLine.getChildren().add(new Text(""));
             Iterator<Wordlet> iter = lines.getLines()[i].getIterator();
