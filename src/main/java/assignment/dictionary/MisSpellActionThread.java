@@ -45,12 +45,12 @@ public class MisSpellActionThread implements Runnable {
 
         Platform.runLater(() -> {
             if (dictionaryLoaded) {
-               controller.SetMsg("The Dictionary has been loaded"); 
+                controller.SetMsg("The Dictionary has been loaded");
             } else {
-               controller.SetMsg("No Dictionary is loaded"); 
+                controller.SetMsg("No Dictionary is loaded");
             }
         });
-        
+
         checkWords(textFileName, myDictionary);
 
     }
@@ -65,14 +65,19 @@ public class MisSpellActionThread implements Runnable {
     public void loadDictionary(String theFileName, DictionaryInterface<String, String> theDictionary) {
         Scanner input;
         try {
-// ADD CODE HERE
-// >>>>>>>>>>> ADDED CODE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-
-//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-         
-
-
+            File file = new File(theFileName);
+            input = new Scanner(file);
+            while(input.hasNextLine()){
+                String line = input.nextLine();
+                String[] segments = line.split("\\s+", 2);//split the line into two segments
+                if(segments.length == 2){
+                    String key = segments[0];//first segment becomes the key
+                    String value = segments[1];//second segment becomes the value
+                    theDictionary.add(key, value);//needs to use put to insert the key and value into the hash
+                }
+            }
+            input.close();
+            dictionaryLoaded = true;
         } catch (IOException e) {
             System.out.println("There was an error in reading or opening the file: " + theFileName);
             System.out.println(e.getMessage());
@@ -88,14 +93,20 @@ public class MisSpellActionThread implements Runnable {
     public void checkWords(String theFileName, DictionaryInterface<String, String> theDictionary) {
         Scanner input;
         try {
- 
-// ADD CODE HERE
-// >>>>>>>>>>> ADDED CODE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-
-//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-
+            File file = new File(theFileName); //sets a file to the file given
+            input = new Scanner(file); //makes the input a scanner with a file
+            while(input.hasNextLine()){ //while there are lines in the file
+                String line = input.nextLine();
+                String[] words = line.split("//s+");//split the string into wordlets
+                for(String word : words){//for word in the string
+                    boolean isCorrect = checkWord(word, theDictionary);
+                    Wordlet wordlet = new Wordlet(word, isCorrect);
+                    myLines.addWordlet(wordlet);
+                }
+                showLines(myLines);//showing the lines that were checked
+                myLines.nextLine();//goes to the next line in the for loop
+            }
+            input.close();
 
         } catch (IOException e) {
             System.out.println("There was an error in reading or opening the file: " + theFileName);
@@ -111,13 +122,7 @@ public class MisSpellActionThread implements Runnable {
     public boolean checkWord(String word, DictionaryInterface<String, String> theDictionary) {
         boolean result = false;
 
-        // ADD CODE HERE
-//>>>>>>>>>>> ADDED CODE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>        
-
-
-
-
-//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        result = theDictionary.contains(word);
 
         return result;
 
