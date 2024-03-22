@@ -128,7 +128,6 @@ public class MisSpellActionThread implements Runnable {
     public boolean checkWord(String word, DictionaryInterface<String, String> theDictionary) {
         boolean result = false;
         result = theDictionary.contains(word);
-        System.out.println(result);
         return result;
 
     }
