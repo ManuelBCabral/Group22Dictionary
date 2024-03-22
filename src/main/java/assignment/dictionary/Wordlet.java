@@ -26,6 +26,9 @@ public class Wordlet
     {
         return myWord;
     }
+    public void setSpelledCorrectly(boolean spelledCorrectly) {
+        this.spelledCorrectly = spelledCorrectly;
+    }
 
     /**
      * Is the word spelled correctly?

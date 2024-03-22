@@ -46,12 +46,13 @@ public class MisSpellActionThread implements Runnable {
         Platform.runLater(() -> {
             if (dictionaryLoaded) {
                 controller.SetMsg("The Dictionary has been loaded");
+
             } else {
                 controller.SetMsg("No Dictionary is loaded");
             }
         });
-
         checkWords(textFileName, myDictionary);
+
 
     }
 
@@ -64,17 +65,23 @@ public class MisSpellActionThread implements Runnable {
      */
     public void loadDictionary(String theFileName, DictionaryInterface<String, String> theDictionary) {
         Scanner input;
+        int keyCounter = 1;
         try {
             File file = new File(theFileName);
             input = new Scanner(file);
             while(input.hasNextLine()){
-                String line = input.nextLine();
-                String[] segments = line.split("\\s+", 2);//split the line into two segments
-                if(segments.length == 2){
-                    String key = segments[0];//first segment becomes the key
-                    String value = segments[1];//second segment becomes the value
-                    theDictionary.add(key, value);//needs to use put to insert the key and value into the hash
-                }
+                int i = 0;
+                //String line = input.nextLine();
+                //String[] segments = line.split("\\s+", 2);//split the line into two segments
+//                if(segments.length == 2){
+                    //String key = segments[0];//first segment becomes the key
+                    //String value = segments[1];//second segment becomes the value
+                String word = input.nextLine().trim(); // Trim any leading/trailing whitespace
+                String key = "key_" + keyCounter;
+                theDictionary.add(word,key);
+                keyCounter++;
+                //needs to use put to insert the key and value into the hash
+                //}
             }
             input.close();
             dictionaryLoaded = true;
